@@ -3,17 +3,20 @@
 }
 
 .SearchBarContainer {
-    margin-top: 100px;
+    margin-top: 50px;
     margin-bottom: 50px;
 }
 
 .search-bar {
     font-size: 2rem;
+    border-radius: 1rem;
 }
 
-.search-icon {
+.search-icon-btn {
     font-size: 2rem;
     width: 15%;
+    border-top-right-radius: 1rem;
+    border-bottom-right-radius: 1rem;
 }
 
 .section-header {
@@ -34,9 +37,14 @@
     align-items: center;
     justify-content: center;
     font-size: 1.5rem;
-    width: 12rem;
-    color: black;
-    border-color: grey;
+    width: 15rem;
+    color: grey;
+    border-color: lightgrey;
+    border-radius: 20px !important;
+}
+
+.search-btn:hover {
+    transition: ease-in-out 0.3s;
 }
 
 .search-btn-icon {
@@ -46,4 +54,26 @@
 .date-buttons {
     font-size: 1.5rem;
     margin: 2rem;
+}
+
+@media screen and (max-width: 600px) {
+    .search-bar {
+        font-size: 1.5rem;
+    }
+    .SearchBarContainer {
+        margin-top: 40px;
+        margin-bottom: 25px;
+    }
+    .search-icon-btn {
+        font-size: 1.5rem;
+        width: 20%;
+    }
+    .search-btn {
+        font-size: 1.5rem;
+        width: 8rem;
+    }
+    .date-buttons {
+        font-size: 1.3rem;
+        margin: 1rem;
+    }
 }

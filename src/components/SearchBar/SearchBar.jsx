@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import ToggleButton from "react-bootstrap/ToggleButton";
 import Form from "react-bootstrap/Form";
+import Alert from 'react-bootstrap/Alert'
+import Button from 'react-bootstrap/Button'
 import {
   AiOutlineSearch,
   AiFillRedditCircle,
@@ -15,6 +17,7 @@ const SearchBar = () => {
   const [input, setInput] = useState("");
   const [siteValue, setSiteValue] = useState("");
   const [dateValue, setDateValue] = useState("");
+  const [alert, setAlert] = useState(false);
 
   const sites = [
     {
@@ -48,58 +51,108 @@ const SearchBar = () => {
     setInput(event.target.value);
   };
   const handleClick = () => {
+    if (input === "") {
+      setAlert(true);
+      return;
+    }
+
     if (sites.find((e) => e.value === siteValue) === undefined) {
+      // check for no site chosen
       if (dateValue === "") {
+        // check for no date chosen
         let searchString =
           "https://www.google.com/search?q=" +
           input.replace(/\s+/g, "+").toLowerCase();
-          window.location.href = searchString;
+        window.location.href = searchString;
       } else {
         let searchString =
           "https://www.google.com/search?q=" +
           input.replace(/\s+/g, "+").toLowerCase() +
           dateValue;
-          window.location.href = searchString;
+        window.location.href = searchString;
       }
-      
     } else if (sites.find((e) => e.value === siteValue).name === "Google") {
-        if (dateValue === "") {
-            let searchString =
-              "https://www.google.com/search?q=" +
-              input.replace(/\s+/g, "+").toLowerCase();
-              window.location.href = searchString;
-          } else {
-            let searchString =
-              "https://www.google.com/search?q=" +
-              input.replace(/\s+/g, "+").toLowerCase() +
-              dateValue;
-              window.location.href = searchString;
-          }
-    } else {
-      if (dateValue === ""){
+      // search google
+      if (dateValue === "") {
         let searchString =
-        "https://www.google.com/search?q=" +
-        input.replace(/\s+/g, "+").toLowerCase() +
-        "+" +
-        "site:" +
-        sites.find((e) => e.value === siteValue).link;
+          "https://www.google.com/search?q=" +
+          input.replace(/\s+/g, "+").toLowerCase();
         window.location.href = searchString;
       } else {
+        // with chosen date
         let searchString =
-        "https://www.google.com/search?q=" +
-        input.replace(/\s+/g, "+").toLowerCase() +
-        "+" +
-        "site:" +
-        sites.find((e) => e.value === siteValue).link + dateValue;
+          "https://www.google.com/search?q=" +
+          input.replace(/\s+/g, "+").toLowerCase() +
+          dateValue;
+        window.location.href = searchString;
+      }
+    } else {
+      // search all other sites
+      if (dateValue === "") {
+        // without date chosen
+        let searchString =
+          "https://www.google.com/search?q=" +
+          input.replace(/\s+/g, "+").toLowerCase() +
+          "+" +
+          "site:" +
+          sites.find((e) => e.value === siteValue).link;
+        window.location.href = searchString;
+      } else {
+        // with date chosen
+        let searchString =
+          "https://www.google.com/search?q=" +
+          input.replace(/\s+/g, "+").toLowerCase() +
+          "+" +
+          "site:" +
+          sites.find((e) => e.value === siteValue).link +
+          dateValue;
         window.location.href = searchString;
       }
     }
-    console.log(sites.find((e) => e.value === siteValue).name);
+    // //testing purposes
+    // console.log(sites.find((e) => e.value === siteValue).name);
   };
+
+  function AlertDismissibleExample() {
+    const [show, setShow] = useState(true);
+  
+    if (show) {
+      return (
+        <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
+          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
+          <p>
+            Change this and that and try again. Duis mollis, est non commodo
+            luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit.
+            Cras mattis consectetur purus sit amet fermentum.
+          </p>
+        </Alert>
+      );
+    }
+    return null;
+  }
 
   return (
     <div className="SearchContainer">
       <div className="SearchBarContainer">
+        {alert && (
+          <AlertDismissibleExample />
+          // <div
+          //   class="alert alert-primary alert-dismissible fade show"
+          //   role="alert"
+          // >
+          //   <strong>Holy guacamole!</strong> You should check in on some of
+          //   those fields below.
+          //   <button
+          //     type="button"
+          //     className="close"
+          //     data-dismiss="alert"
+          //     aria-label="Close"
+          //   >
+          //     <span aria-hidden="true">&times;</span>
+          //   </button>
+          // </div>
+        )}
+
         <div className="input-group">
           <input
             onChange={handleChange}
@@ -110,7 +163,7 @@ const SearchBar = () => {
           <button
             onClick={handleClick}
             type="button"
-            className="btn btn-primary search-icon"
+            className="btn btn-primary search-icon-btn"
           >
             <AiOutlineSearch />
           </button>
@@ -175,10 +228,19 @@ const SearchBar = () => {
                 label="Anytime"
                 name="dates"
                 type={type}
-                value="testtt"
                 autoComplete="off"
                 id={`inline-${type}-1`}
                 onClick={(e) => setDateValue("")}
+              />
+              <Form.Check
+                inline
+                className="date-buttons"
+                label="Past 24 Hours"
+                name="dates"
+                type={type}
+                autoComplete="off"
+                id={`inline-${type}-5`}
+                onClick={(e) => setDateValue("&tbs=qdr:h24")}
               />
               <Form.Check
                 inline

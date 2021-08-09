@@ -1,11 +1,19 @@
-.HeaderContainer {
-    margin-top: 5rem;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-}
-
-.header-title {
-    font-weight: bold;
-}
+    .HeaderContainer {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        text-align: center;
+    }
+    
+    .header-title {
+        font-weight: bold;
+    }
+    
+    .twitter {
+        color: #1DA1F2;
+    }
+    
+    .twitter-link {
+        color: #1DA1F2;
+        text-decoration: none;
+    }

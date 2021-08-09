@@ -109,6 +109,8 @@ const SearchBar = () => {
         window.location.href = searchString;
       }
     }
+
+    setDateValue("");
     // //testing purposes
     // console.log(sites.find((e) => e.value === siteValue).name);
   };

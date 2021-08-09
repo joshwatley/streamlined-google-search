@@ -24,7 +24,7 @@ const SearchBar = () => {
       name: "Reddit",
       value: "1",
       icon: "AiFillRedditCircle",
-      link: "reddit.com&tbs=qdr:m6",
+      link: "reddit.com",
     },
     {
       name: "Stack Overflow",

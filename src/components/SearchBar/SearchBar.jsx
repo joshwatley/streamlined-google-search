@@ -114,9 +114,8 @@ const SearchBar = () => {
   };
 
   function AlertDismissibleExample() {
-    const [show, setShow] = useState(true);
   
-    if (show) {
+    if (alert) {
       return (
         <Alert variant="danger" onClose={() => setAlert(false)} dismissible>
           <Alert.Heading>Oh snap! This doesn't look right!</Alert.Heading>
@@ -134,21 +133,6 @@ const SearchBar = () => {
       <div className="SearchBarContainer">
         {alert && (
           <AlertDismissibleExample />
-          // <div
-          //   class="alert alert-primary alert-dismissible fade show"
-          //   role="alert"
-          // >
-          //   <strong>Holy guacamole!</strong> You should check in on some of
-          //   those fields below.
-          //   <button
-          //     type="button"
-          //     className="close"
-          //     data-dismiss="alert"
-          //     aria-label="Close"
-          //   >
-          //     <span aria-hidden="true">&times;</span>
-          //   </button>
-          // </div>
         )}
 
         <div className="input-group">
